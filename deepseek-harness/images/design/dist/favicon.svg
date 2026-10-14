@@ -1,0 +1,6 @@
+<!-- 品牌 favicon：蓝色三角形 logo，与页面品牌一致 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="8" fill="#2563eb" />
+  <path d="M16 7 L24 25 L8 25 Z" fill="#ffffff" />
+  <path d="M16 13 L20 21 L12 21 Z" fill="#2563eb" />
+</svg>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数字员工预览 - Harness 管理后台</title>
+  <!-- 共享设计令牌与组件样式 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 应用外壳：左侧固定侧边栏 + 右侧主内容区 -->
+  <div class="app">
+
+    <!-- ===================== 侧边栏 ===================== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-name">Harness 管理后台</span>
+          <span class="brand-tag">数字员工</span>
+        </div>
+      </div>
+
+      <!-- 导航菜单：发布与预览为当前选中 -->
+      <nav class="nav">
+        <div class="nav-group-title">资源管理</div>
+        <a class="nav-item" href="knowledge-base.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          知识库
+        </a>
+        <a class="nav-item" href="create-skill.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          技能
+        </a>
+        <a class="nav-item" href="employees.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          数字员工
+        </a>
+
+        <div class="nav-sep"></div>
+        <div class="nav-group-title">发布管理</div>
+        <a class="nav-item active" href="employee-preview.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          发布与预览
+        </a>
+      </nav>
+
+      <div class="user-area">
+        <div class="avatar avatar-blue">管</div>
+        <div class="user-info">
+          <div class="user-name">管理员</div>
+          <div class="user-role">admin@harness</div>
+        </div>
+        <a class="logout-link" href="login.html">退出</a>
+      </div>
+    </aside>
+
+    <!-- ===================== 主内容区 ===================== -->
+    <main class="main">
+      <!-- 面包屑导航 -->
+      <div class="breadcrumb">
+        Harness 管理后台 <span class="sep">/</span> 数字员工 <span class="sep">/</span> 制度问答专家 <span class="sep">/</span> <span class="current">预览</span>
+      </div>
+
+      <!-- 页面标题区：标题 + 状态 + 右侧操作 -->
+      <div class="page-header">
+        <div style="display:flex; align-items:center; gap:12px">
+          <h1>制度问答专家</h1>
+          <span class="tag tag-green">已发布 v2</span>
+          <span class="tag tag-gray">发布人：管理员 · 2026-10-01</span>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-secondary">返回列表</button>
+          <button class="btn btn-primary">发布新版本</button>
+        </div>
+      </div>
+
+      <!-- 页签：预览 / 版本历史 / 配置 -->
+      <div class="underline-tabs" style="margin-bottom:16px">
+        <button class="underline-tab active">预览</button>
+        <button class="underline-tab">版本历史</button>
+        <button class="underline-tab">配置</button>
+      </div>
+
+      <!-- 内容区：左侧信息面板 32% + 右侧对话预览 68% -->
+      <div class="split">
+
+        <!-- ============ 左侧：信息面板 ============ -->
+        <div class="split-left">
+          <div class="info-card" style="text-align:center">
+            <div class="avatar-big round-icon-purple" style="margin:0 auto 12px">制</div>
+            <div class="form-card-title">制度问答专家</div>
+            <p class="form-hint">面向管理员的制度检索与问答助手</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-title">关联信息</div>
+            <div class="info-rows">
+              <div class="info-row"><span class="k">关联技能</span><span class="v">制度查询专家 ×3 知识库</span></div>
+              <div class="info-row"><span class="k">模型</span><span class="v">deepseek-chat</span></div>
+              <div class="info-row"><span class="k">温度</span><span class="v">0.3</span></div>
+              <div class="info-row"><span class="k">上下文长度</span><span class="v">8192</span></div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-title">版本历史</div>
+            <!-- 当前版本：浅蓝底 + 左侧主色条 -->
+            <div class="version-item current">
+              <div class="v-info">
+                <span class="v-no">v2</span>
+                <span class="v-meta">2026-10-01 管理员</span>
+              </div>
+              <span class="tag tag-green">当前</span>
+            </div>
+            <!-- 历史版本：可回滚（回滚不修改历史快照，仅新增生效记录） -->
+            <div class="version-item">
+              <div class="v-info">
+                <span class="v-no">v1</span>
+                <span class="v-meta">2026-09-20 管理员</span>
+              </div>
+              <a class="rollback-link" href="javascript:void(0)" onclick="showToast('已创建回滚生效记录（原型演示）','success')">回滚</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ 右侧：对话预览壳（模拟用户端） ============ -->
+        <div class="split-right">
+          <div class="chat-shell">
+            <!-- 顶部栏：数字员工名 + 在线状态 -->
+            <div class="chat-topbar">
+              <span class="online-dot"></span>
+              制度问答专家
+              <span class="chat-online">在线 · 管理验证预览</span>
+            </div>
+
+            <!-- 快捷提问：点击直接发送 -->
+            <div class="quick-asks">
+              <button class="quick-chip" onclick="sendQuick(this.textContent)">请查询授信制度要求</button>
+              <button class="quick-chip" onclick="sendQuick(this.textContent)">合规审查需要哪些材料？</button>
+              <button class="quick-chip" onclick="sendQuick(this.textContent)">产品发布流程是什么？</button>
+            </div>
+
+            <!-- 消息区 -->
+            <div class="chat-messages" id="msgArea">
+              <!-- AI 欢迎消息 -->
+              <div class="msg msg-ai">
+                <div class="avatar avatar-sm avatar-purple">制</div>
+                <div>
+                  <div class="msg-bubble">您好，我是「制度问答专家」。我可以基于已发布的制度知识库回答您的问题。</div>
+                  <div class="msg-time">10:00</div>
+                </div>
+              </div>
+              <!-- 用户消息：主色气泡 -->
+              <div class="msg msg-user">
+                <div>
+                  <div class="msg-bubble">请查询授信制度要求</div>
+                  <div class="msg-time" style="text-align:right">10:01</div>
+                </div>
+              </div>
+              <!-- AI 回复 -->
+              <div class="msg msg-ai">
+                <div class="avatar avatar-sm avatar-purple">制</div>
+                <div>
+                  <div class="msg-bubble">根据《授信管理制度》（v2.3）第 4 章：授信申请需提供营业执照、近两年财务报表及信用报告，额度超过 500 万需风控委员会审批。引用：授信指引 / 第 4 章。</div>
+                  <div class="msg-time">10:01</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Omni-box 万能输入区 -->
+            <div class="omni-box">
+              <button class="icon-btn" title="添加附件">+</button>
+              <input class="input" type="text" id="chatInput" placeholder="输入问题，回车发送" />
+              <button class="auto-pill" title="切换输入模式">自动 ▾</button>
+              <button class="send-btn" id="sendBtn" title="发送">➤</button>
+            </div>
+          </div>
+
+          <!-- 说明条：管理验证用途 -->
+          <div class="note-bar">
+            ⓘ 本预览仅用于管理验证，不代表普通用户端正式对话界面
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 操作结果 Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* 原型交互：页签切换（预览 / 版本历史 / 配置） */
+    document.querySelectorAll('.underline-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.underline-tab').forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        showToast('已切换到「' + tab.textContent + '」视图（原型演示）', 'success');
+      });
+    });
+
+    /* 原型交互：发送消息（回车 / 发送按钮） */
+    var input = document.getElementById('chatInput');
+    function sendMessage() {
+      var text = input.value.trim();
+      if (!text) return;
+      appendMsg('user', text);
+      input.value = '';
+      /* 模拟 AI 正在输入 + 延时回复 */
+      var typing = appendMsg('ai', null, true);
+      setTimeout(function () {
+        if (typing && typing.parentNode) typing.remove();
+        appendMsg('ai', '（原型演示回复）我已收到您的提问：' + text.slice(0, 20) + '…');
+      }, 1200);
+    }
+    document.getElementById('sendBtn').addEventListener('click', sendMessage);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendMessage(); });
+
+    /* 快捷提问 */
+    function sendQuick(text) { input.value = text; sendMessage(); }
+
+    /* 追加消息气泡；typing=true 时插入"正在输入"指示器 */
+    function appendMsg(role, text, typing) {
+      var area = document.getElementById('msgArea');
+      var wrap = document.createElement('div');
+      wrap.className = 'msg msg-' + role;
+      var inner = document.createElement('div');
+      if (role === 'ai') {
+        var avatar = document.createElement('div');
+        avatar.className = 'avatar avatar-sm avatar-purple';
+        avatar.textContent = '制';
+        wrap.appendChild(avatar);
+        if (typing) {
+          inner.innerHTML = '<div class="msg-bubble"><span class="typing"><i></i><i></i><i></i></span></div>';
+        } else {
+          inner.innerHTML = '<div class="msg-bubble"></div><div class="msg-time">' + now() + '</div>';
+          inner.querySelector('.msg-bubble').textContent = text;
+        }
+      } else {
+        inner.innerHTML = '<div class="msg-bubble"></div><div class="msg-time" style="text-align:right">' + now() + '</div>';
+        inner.querySelector('.msg-bubble').textContent = text;
+      }
+      wrap.appendChild(inner);
+      area.appendChild(wrap);
+      area.scrollTop = area.scrollHeight;
+      return typing ? wrap : null;
+    }
+
+    /* 当前时间 HH:mm */
+    function now() {
+      var d = new Date();
+      return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+    }
+
+    /* 原型交互：Toast 提示 */
+    function showToast(msg, type) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast show ' + (type || 'success');
+      setTimeout(function () { toast.classList.remove('show'); }, 3000);
+    }
+  </script>
+</body>
+</html>

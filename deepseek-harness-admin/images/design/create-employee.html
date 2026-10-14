@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>创建数字员工 - Harness 管理后台</title>
+  <!-- 共享设计令牌与组件样式 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 应用外壳：左侧固定侧边栏 + 右侧主内容区 -->
+  <div class="app">
+
+    <!-- ===================== 侧边栏 ===================== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-name">Harness 管理后台</span>
+          <span class="brand-tag">数字员工</span>
+        </div>
+      </div>
+
+      <!-- 导航菜单：数字员工为当前选中 -->
+      <nav class="nav">
+        <div class="nav-group-title">资源管理</div>
+        <a class="nav-item" href="knowledge-base.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          知识库
+        </a>
+        <a class="nav-item" href="create-skill.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          技能
+        </a>
+        <a class="nav-item active" href="employees.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          数字员工
+        </a>
+
+        <div class="nav-sep"></div>
+        <div class="nav-group-title">发布管理</div>
+        <a class="nav-item" href="employee-preview.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          发布与预览
+        </a>
+      </nav>
+
+      <div class="user-area">
+        <div class="avatar avatar-blue">管</div>
+        <div class="user-info">
+          <div class="user-name">管理员</div>
+          <div class="user-role">admin@harness</div>
+        </div>
+        <a class="logout-link" href="login.html">退出</a>
+      </div>
+    </aside>
+
+    <!-- ===================== 主内容区 ===================== -->
+    <main class="main">
+      <!-- 面包屑导航 -->
+      <div class="breadcrumb">
+        Harness 管理后台 <span class="sep">/</span> 数字员工 <span class="sep">/</span> <span class="current">创建数字员工</span>
+      </div>
+
+      <!-- 页面标题 -->
+      <div class="page-header">
+        <div>
+          <h1>创建数字员工</h1>
+          <p class="page-sub">填写基础信息、系统提示词与模型配置，并关联一个或多个技能</p>
+        </div>
+      </div>
+
+      <!-- ============ 分区一：基础信息 ============ -->
+      <div class="form-card">
+        <div class="form-card-title">基础信息</div>
+        <div class="form-row">
+          <div class="form-item">
+            <label class="form-label" for="empName"><span class="required">*</span>名称</label>
+            <input class="input" id="empName" type="text" placeholder="例如：制度问答专家" />
+          </div>
+          <div class="form-item">
+            <label class="form-label">头像</label>
+            <!-- 头像选择器：预设渐变头像 + 上传 -->
+            <div class="avatar-picker">
+              <div class="avatar-big avatar-purple" id="avatarPreview">制</div>
+              <div class="avatar-presets">
+                <div class="avatar-preset round-icon-blue active" onclick="setAvatar(this,'blue','制')"></div>
+                <div class="avatar-preset round-icon-purple" onclick="setAvatar(this,'purple','问')"></div>
+                <div class="avatar-preset round-icon-teal" onclick="setAvatar(this,'teal','答')"></div>
+                <div class="avatar-preset round-icon-blue" style="background:linear-gradient(135deg,#F5A623,#F76B1C)" onclick="setAvatar(this,'orange','咨')"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-item">
+          <label class="form-label" for="empDesc">描述</label>
+          <textarea class="textarea" id="empDesc" placeholder="描述该数字员工的定位与能力，例如：面向管理员的制度检索与问答助手"></textarea>
+          <div class="form-hint">0 / 200 字</div>
+        </div>
+      </div>
+
+      <!-- ============ 分区二：系统提示词 ============ -->
+      <div class="form-card">
+        <div class="form-card-title">系统提示词</div>
+        <div class="form-item">
+          <textarea class="textarea textarea-lg" id="sysPrompt" placeholder="你是「制度问答专家」，一位严谨的制度检索助手。回答必须基于关联知识库内容，并标注引用来源……"></textarea>
+          <div class="form-hint" style="display:flex; justify-content:space-between">
+            <span>系统提示词将作为数字员工的行为底座</span>
+            <span>0 / 2000 字</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ 分区三：模型配置 ============ -->
+      <div class="form-card">
+        <div class="form-card-title">模型配置</div>
+        <div class="form-row">
+          <div class="form-item">
+            <label class="form-label" for="modelSelect">模型</label>
+            <select class="select" id="modelSelect">
+              <option>deepseek-chat（默认）</option>
+              <option>deepseek-reasoner</option>
+              <option>其他供应商模型</option>
+            </select>
+          </div>
+          <div class="form-item">
+            <label class="form-label" for="contextLen">上下文长度</label>
+            <input class="input" id="contextLen" type="number" value="8192" min="1024" step="1024" />
+          </div>
+        </div>
+        <!-- 温度滑块：拖动实时显示数值 -->
+        <div class="form-item">
+          <label class="form-label" for="tempRange">温度 <span class="form-hint">（越低越精确，越高越发散）</span></label>
+          <div class="range-wrap">
+            <input type="range" id="tempRange" min="0" max="1" step="0.1" value="0.3" />
+            <span class="range-value" id="tempValue">0.3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ 分区四：关联 Skills（多选卡片） ============ -->
+      <div class="form-card">
+        <div class="form-card-title">
+          关联技能
+          <span class="tag tag-blue" style="float:right">已选 <b id="skillCount">1</b> / 3</span>
+        </div>
+        <p class="form-hint" style="margin-bottom:16px">数字员工不直接选择知识库，知识库由所选技能间接提供。</p>
+
+        <div class="grid grid-3">
+          <!-- 可选 Skill 卡片：全部知识库 READY，可发布 -->
+          <div class="skill-card selected" data-skill="制度查询专家">
+            <span class="badge">可发布</span>
+            <span class="round-icon round-icon-blue">制</span>
+            <div class="skill-card-title">制度查询专家</div>
+            <div class="skill-card-desc">基于制度知识库的精准检索与问答</div>
+            <div class="skill-card-meta">关联知识库 ×3　<span class="tag tag-green">已就绪</span></div>
+          </div>
+          <!-- 可选 Skill 卡片 -->
+          <div class="skill-card" data-skill="风险审查">
+            <span class="round-icon round-icon-purple">风</span>
+            <div class="skill-card-title">风险审查</div>
+            <div class="skill-card-desc">授信与合规风险识别辅助</div>
+            <div class="skill-card-meta">关联知识库 ×1　<span class="tag tag-green">已就绪</span></div>
+          </div>
+          <!-- 锁定 Skill 卡片：关联知识库未完成向量化，可勾选但发布被拦截 -->
+          <div class="skill-card locked selected" title="关联知识库未完成向量化，无法发布">
+            <span class="badge" style="background:var(--warning)">不可发布</span>
+            <span class="round-icon round-icon-teal">营</span>
+            <div class="skill-card-title">营销助手</div>
+            <div class="skill-card-desc">客户营销话术生成与建议</div>
+            <div class="skill-card-meta">关联知识库 ×2　<span class="tag tag-blue"><i class="spinner"></i>处理中</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ 发布校验结果区 ============ -->
+      <div class="check-list">
+        <div class="check-item"><span class="ok">✓</span> 名称 / 系统提示词 / 模型配置 已填写</div>
+        <div class="check-item"><span class="ok">✓</span> 所选技能「制度查询专家」关联知识库已完成向量化</div>
+        <div class="check-item no"><span>✗</span> 所选技能「营销助手」关联知识库未完成向量化，无法发布</div>
+      </div>
+
+      <!-- ============ 底部操作：取消 / 保存草稿 / 发布 ============ -->
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px">
+        <button class="btn btn-secondary">取消</button>
+        <button class="btn btn-secondary" id="draftBtn">保存草稿</button>
+        <!-- 发布按钮：存在未通过校验项时禁用 -->
+        <button class="btn btn-primary" id="publishBtn" disabled>发布数字员工</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- 发布确认弹窗 -->
+  <div class="modal-mask" id="publishModal">
+    <div class="modal">
+      <div class="modal-header">
+        确认发布
+        <button class="modal-close" onclick="document.getElementById('publishModal').classList.remove('open')">×</button>
+      </div>
+      <div class="modal-body">
+        <p>即将为「制度问答专家」生成发布版本，发布后不可直接修改历史版本。</p>
+        <div class="check-list" style="margin-top:12px; box-shadow:none">
+          <div class="check-item"><span class="ok">✓</span> 名称：制度问答专家</div>
+          <div class="check-item"><span class="ok">✓</span> 关联技能：制度查询专家</div>
+          <div class="check-item"><span class="ok">✓</span> 发布人：管理员</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="document.getElementById('publishModal').classList.remove('open')">取消</button>
+        <button class="btn btn-primary" onclick="document.getElementById('publishModal').classList.remove('open'); showToast('发布成功（原型演示）','success')">确认发布</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 操作结果 Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* 原型交互：Skill 卡片多选（锁定卡片可勾选，但会拦截发布） */
+    document.querySelectorAll('.skill-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        card.classList.toggle('selected');
+        if (card.classList.contains('locked') && card.classList.contains('selected')) {
+          showToast('「营销助手」关联知识库未完成向量化，无法发布', 'error');
+        }
+        updateSkillCount();
+        updatePublishState();
+      });
+    });
+
+    /* 原型交互：已选 Skill 计数 */
+    function updateSkillCount() {
+      document.getElementById('skillCount').textContent = document.querySelectorAll('.skill-card.selected').length;
+    }
+    updateSkillCount();
+
+    /* 原型交互：存在锁定 Skill 被选中时禁用发布按钮（模拟校验拦截） */
+    function updatePublishState() {
+      var blocked = Array.prototype.some.call(document.querySelectorAll('.skill-card.selected.locked'), function () { return true; });
+      document.getElementById('publishBtn').disabled = blocked;
+    }
+    updatePublishState();
+
+    /* 原型交互：发布按钮打开确认弹窗 */
+    document.getElementById('publishBtn').addEventListener('click', function () {
+      document.getElementById('publishModal').classList.add('open');
+    });
+
+    /* 原型交互：草稿保存 */
+    document.getElementById('draftBtn').addEventListener('click', function () {
+      showToast('草稿已保存（原型演示）', 'success');
+    });
+
+    /* 原型交互：温度滑块实时数值 */
+    var range = document.getElementById('tempRange');
+    range.addEventListener('input', function () {
+      document.getElementById('tempValue').textContent = this.value;
+      /* 更新轨道填充比例 */
+      this.style.setProperty('--fill', (this.value * 100) + '%');
+    });
+    range.style.setProperty('--fill', '30%');
+
+    /* 原型交互：头像预设切换 */
+    function setAvatar(el, color, letter) {
+      document.querySelectorAll('.avatar-preset').forEach(function (p) { p.classList.remove('active'); });
+      el.classList.add('active');
+      var prev = document.getElementById('avatarPreview');
+      /* 橙色预设使用自定义渐变，其余复用预设渐变类 */
+      if (color === 'orange') {
+        prev.className = 'avatar-big';
+        prev.style.background = 'linear-gradient(135deg,#F5A623,#F76B1C)';
+      } else {
+        prev.className = 'avatar-big avatar-' + color;
+        prev.style.background = '';
+      }
+      prev.textContent = letter;
+    }
+
+    /* 原型交互：Toast 提示 */
+    function showToast(msg, type) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast show ' + (type || 'success');
+      setTimeout(function () { toast.classList.remove('show'); }, 3000);
+    }
+  </script>
+</body>
+</html>

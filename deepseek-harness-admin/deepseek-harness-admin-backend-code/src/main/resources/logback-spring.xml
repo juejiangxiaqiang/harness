@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 文件说明：SLF4J/Logback 结构化日志配置。
+     traceId 由 TraceIdFilter 写入 MDC，日志均携带 traceId 便于全链路追踪。 -->
+<configuration>
+    <!-- 控制台输出：时间、级别、traceId、线程、logger、消息 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId:-}] [%thread] %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 日志级别默认 INFO，可观察性相关（调试排查）通过环境变量调整 -->
+    <root level="${LOG_LEVEL:-INFO}">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>登录 - Harness 管理后台</title>
+  <!-- 共享设计令牌与组件样式 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 登录页：左右分栏。左侧品牌展示区(60%)，右侧登录表单区(40%) -->
+  <div class="login-page">
+
+    <!-- 品牌展示区：主色渐变背景 + 品牌信息 + 3D 装饰图形 -->
+    <div class="login-brand">
+      <div class="deco">
+        <!-- 品牌 Logo：白色三角形几何图形 -->
+        <div class="brand-logo"></div>
+        <h1>Harness 管理后台</h1>
+        <p>统一管理知识库 / 技能 / 数字员工</p>
+      </div>
+    </div>
+
+    <!-- 登录表单区 -->
+    <div class="login-panel">
+      <div class="login-card">
+        <h2>欢迎回来</h2>
+        <p class="sub">请登录管理员账号</p>
+
+        <!-- 登录表单 -->
+        <form id="loginForm" novalidate>
+          <!-- 账号输入 -->
+          <div class="form-item">
+            <label class="form-label" for="username">账号</label>
+            <input class="input" id="username" name="username" type="text" placeholder="请输入管理员账号" autocomplete="username" />
+          </div>
+
+          <!-- 密码输入：右侧眼睛图标切换明文 -->
+          <div class="form-item">
+            <label class="form-label" for="password">密码</label>
+            <div class="input-wrap">
+              <input class="input" id="password" name="password" type="password" placeholder="请输入密码" autocomplete="current-password" />
+              <button type="button" class="eye-btn" id="togglePwd" aria-label="显示/隐藏密码">👁</button>
+            </div>
+            <!-- 登录失败内联错误提示（默认隐藏） -->
+            <div class="form-error" id="loginError" style="display:none">账号或密码错误，请重新输入</div>
+          </div>
+
+          <!-- 记住我 + 忘记密码 -->
+          <div class="login-foot">
+            <label class="checkbox">
+              <input type="checkbox" checked />
+              <span class="box"></span>
+              记住我
+            </label>
+            <a class="forgot-link" href="javascript:void(0)">忘记密码</a>
+          </div>
+
+          <!-- 登录主按钮：加载态防重复提交 -->
+          <button type="submit" class="btn btn-primary btn-block" id="loginBtn">登 录</button>
+        </form>
+
+        <p class="login-copy">© 2026 Harness 管理后台</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 操作结果 Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* 原型交互：密码明文切换 */
+    document.getElementById('togglePwd').addEventListener('click', function () {
+      var input = document.getElementById('password');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+
+    /* 原型交互：登录提交。输入非空即展示成功 Toast；留空展示内联错误 */
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var username = document.getElementById('username').value.trim();
+      var password = document.getElementById('password').value.trim();
+      var errorBox = document.getElementById('loginError');
+
+      if (!username || !password) {
+        errorBox.style.display = 'block';
+        return;
+      }
+      errorBox.style.display = 'none';
+
+      var btn = document.getElementById('loginBtn');
+      btn.classList.add('btn-loading');
+      btn.textContent = '登录中…';
+      setTimeout(function () {
+        btn.classList.remove('btn-loading');
+        btn.textContent = '登 录';
+        showToast('登录成功（原型演示）', 'success');
+      }, 800);
+    });
+
+    /* 原型交互：Toast 提示 */
+    function showToast(msg, type) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast show ' + (type || 'success');
+      setTimeout(function () { toast.classList.remove('show'); }, 3000);
+    }
+  </script>
+</body>
+</html>

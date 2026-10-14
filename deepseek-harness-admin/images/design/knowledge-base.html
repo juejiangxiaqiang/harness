@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>知识库 - Harness 管理后台</title>
+  <!-- 共享设计令牌与组件样式 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 应用外壳：左侧固定侧边栏 + 右侧主内容区 -->
+  <div class="app">
+
+    <!-- ===================== 侧边栏 ===================== -->
+    <aside class="sidebar">
+      <!-- 品牌区：三角形几何 Logo + 名称 + 副标签 -->
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span class="brand-name">Harness 管理后台</span>
+          <span class="brand-tag">数字员工</span>
+        </div>
+      </div>
+
+      <!-- 导航菜单：资源管理分组 -->
+      <nav class="nav">
+        <div class="nav-group-title">资源管理</div>
+        <a class="nav-item active" href="knowledge-base.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          知识库
+        </a>
+        <a class="nav-item" href="create-skill.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          技能
+        </a>
+        <a class="nav-item" href="employees.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          数字员工
+        </a>
+
+        <!-- 分组分隔线 -->
+        <div class="nav-sep"></div>
+        <div class="nav-group-title">发布管理</div>
+        <a class="nav-item" href="employee-preview.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          发布与预览
+        </a>
+      </nav>
+
+      <!-- 底部用户区：头像 + 姓名 + 退出 -->
+      <div class="user-area">
+        <div class="avatar avatar-blue">管</div>
+        <div class="user-info">
+          <div class="user-name">管理员</div>
+          <div class="user-role">admin@harness</div>
+        </div>
+        <a class="logout-link" href="login.html">退出</a>
+      </div>
+    </aside>
+
+    <!-- ===================== 主内容区 ===================== -->
+    <main class="main">
+      <!-- 面包屑导航 -->
+      <div class="breadcrumb">
+        Harness 管理后台 <span class="sep">/</span> 资源管理 <span class="sep">/</span> <span class="current">知识库</span>
+      </div>
+
+      <!-- 页面标题区：标题 + 副标题 + 右侧操作（搜索 + 上传按钮） -->
+      <div class="page-header">
+        <div>
+          <h1>知识库</h1>
+          <p class="page-sub">管理全局共享知识库，上传后自动解析、切分、向量化</p>
+        </div>
+        <div class="page-actions">
+          <div class="search-box">
+            <span class="icon">🔍</span>
+            <input class="input" type="text" placeholder="搜索知识库名称" />
+          </div>
+          <button class="btn btn-primary" id="openUploadBtn">+ 上传知识库</button>
+        </div>
+      </div>
+
+      <!-- 状态筛选：胶囊标签切换 -->
+      <div class="pill-tabs" style="margin-bottom:16px" id="statusTabs">
+        <button class="pill-tab active" data-status="all">全部</button>
+        <button class="pill-tab" data-status="uploading">待处理</button>
+        <button class="pill-tab" data-status="processing">处理中</button>
+        <button class="pill-tab" data-status="ready">已就绪</button>
+        <button class="pill-tab" data-status="failed">失败</button>
+      </div>
+
+      <!-- 知识库列表表格 -->
+      <div class="table-card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:34%">名称</th>
+              <th>文件类型</th>
+              <th>大小</th>
+              <th>状态</th>
+              <th style="text-align:right">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- READY：绿色标签 -->
+            <tr>
+              <td class="td-name">产品手册 v2</td>
+              <td class="td-muted">PDF</td>
+              <td class="td-muted">8.2 MB</td>
+              <td><span class="tag tag-green">已就绪</span></td>
+              <td>
+                <div class="table-actions" style="justify-content:flex-end">
+                  <a class="link link-sm" href="javascript:void(0)">重新向量化</a>
+                  <a class="link link-danger link-sm" href="javascript:void(0)">删除</a>
+                </div>
+              </td>
+            </tr>
+            <!-- PROCESSING：蓝色标签 + 菊花 + 进度条 -->
+            <tr>
+              <td class="td-name">合规制度库</td>
+              <td class="td-muted">DOCX</td>
+              <td class="td-muted">2.1 MB</td>
+              <td>
+                <span class="tag tag-blue"><i class="spinner"></i>处理中</span>
+                <div class="progress" style="margin-top:6px"><i style="width:64%"></i></div>
+              </td>
+              <td>
+                <div class="table-actions" style="justify-content:flex-end">
+                  <a class="link link-sm" href="javascript:void(0)">查看进度</a>
+                  <a class="link link-danger link-sm" href="javascript:void(0)">删除</a>
+                </div>
+              </td>
+            </tr>
+            <!-- FAILED：红色标签 -->
+            <tr>
+              <td class="td-name">授信指引</td>
+              <td class="td-muted">MD</td>
+              <td class="td-muted">0.4 MB</td>
+              <td><span class="tag tag-red" title="向量化失败：向量写入超时，第 2 次重试失败">失败</span></td>
+              <td>
+                <div class="table-actions" style="justify-content:flex-end">
+                  <a class="link link-sm" href="javascript:void(0)">重新处理</a>
+                  <a class="link link-danger link-sm" href="javascript:void(0)">删除</a>
+                </div>
+              </td>
+            </tr>
+            <!-- UPLOADING：灰色标签 -->
+            <tr>
+              <td class="td-name">客户营销话术</td>
+              <td class="td-muted">DOCX</td>
+              <td class="td-muted">1.6 MB</td>
+              <td><span class="tag tag-gray">待处理</span></td>
+              <td>
+                <div class="table-actions" style="justify-content:flex-end">
+                  <a class="link link-danger link-sm" href="javascript:void(0)">删除</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 分页 -->
+        <div class="pagination">
+          <span class="page-total">共 12 条</span>
+          <button class="page-btn">上一页</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">下一页</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===================== 上传知识库弹窗 ===================== -->
+  <div class="modal-mask" id="uploadModal">
+    <div class="modal">
+      <div class="modal-header">
+        上传知识库
+        <button class="modal-close" id="closeUploadBtn" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <!-- 拖拽上传区：hover / 拖拽悬停变主色虚线 -->
+        <div class="drop-zone" id="dropZone">
+          <div class="dz-icon">📄</div>
+          拖拽文件到此处，或 <a class="link" href="javascript:void(0)">点击选择文件</a>
+          <div class="dz-sub">支持 PDF / DOCX / MD，单个 ≤ 50MB</div>
+        </div>
+
+        <!-- 上传文件列表 -->
+        <div class="upload-list" id="uploadList">
+          <div class="upload-item">
+            <span class="file-name">产品手册 v2.pdf</span>
+            <span class="file-size">8.2 MB</span>
+            <span class="spacer"></span>
+            <span class="spinner" style="color:var(--primary)"></span>
+            <span class="tag tag-blue">上传中…</span>
+            <a class="link-danger link-sm" href="javascript:void(0)">移除</a>
+          </div>
+          <div class="upload-item">
+            <span class="file-name">合规制度库.docx</span>
+            <span class="file-size">2.1 MB</span>
+            <span class="spacer"></span>
+            <span style="color:var(--success)">✓</span>
+            <span class="tag tag-green">已上传</span>
+            <a class="link-danger link-sm" href="javascript:void(0)">移除</a>
+          </div>
+        </div>
+
+        <!-- 上传后自动处理说明 -->
+        <p class="form-hint" style="margin-top:12px">上传完成后将自动开始解析、切分、向量化，处理完成后状态变为已就绪。</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelUploadBtn">取消</button>
+        <button class="btn btn-primary">开始上传</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 操作结果 Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* 原型交互：上传弹窗开关 */
+    var modal = document.getElementById('uploadModal');
+    document.getElementById('openUploadBtn').addEventListener('click', function () { modal.classList.add('open'); });
+    document.getElementById('closeUploadBtn').addEventListener('click', closeModal);
+    document.getElementById('cancelUploadBtn').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    function closeModal() { modal.classList.remove('open'); }
+
+    /* 原型交互：状态筛选胶囊切换（仅演示高亮切换） */
+    document.getElementById('statusTabs').addEventListener('click', function (e) {
+      var tab = e.target.closest('.pill-tab');
+      if (!tab) return;
+      this.querySelectorAll('.pill-tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+    });
+
+    /* 原型交互：拖拽区 dragover 高亮 */
+    var zone = document.getElementById('dropZone');
+    zone.addEventListener('dragover', function (e) { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', function () { zone.classList.remove('dragover'); });
+    zone.addEventListener('drop', function (e) { e.preventDefault(); zone.classList.remove('dragover'); });
+  </script>
+</body>
+</html>

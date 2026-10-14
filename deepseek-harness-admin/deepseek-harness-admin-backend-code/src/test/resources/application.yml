@@ -1,0 +1,29 @@
+# 文件说明：测试环境配置。集成测试使用内存 H2（MySQL 模式），不依赖外部 MySQL。
+spring:
+  datasource:
+    url: jdbc:h2:mem:harness_test;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  ai:
+    # 测试固定使用本地缺省向量模型与内存向量库；其余 OpenAI 模型能力显式禁用，
+    # 避免 OpenAI/Redis starter 默认值引入外部依赖与无凭据启动失败
+    vectorstore:
+      type: local
+    model:
+      chat: local
+      embedding: local
+      image: local
+      moderation: local
+      audio:
+        speech: local
+        transcription: local
+
+harness:
+  bootstrap-admin:
+    # 测试用初始化管理员账号，验证受控初始化与权限边界
+    username: admin
+    password: Admin@12345
+  storage:
+    # 测试用临时存储目录（构建产物目录，已被 .gitignore 忽略）
+    knowledge-base-dir: ./target/test-knowledge-bases

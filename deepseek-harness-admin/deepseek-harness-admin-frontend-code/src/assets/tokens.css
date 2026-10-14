@@ -1,0 +1,91 @@
+/**
+ * ---
+ * last_updated: 2026-10-08
+ * status: active          # active | deprecated | draft
+ * owner: @qiang
+ * ---
+ * 文件职责：设计令牌唯一来源（对照 docs/VISUAL_DESIGN.md 第 2 章），
+ * 全站禁止散落魔法色值；Element Plus 主题变量在此集中覆盖。
+ */
+
+:root {
+  /* 品牌主色与辅助色 */
+  --color-primary: #5b6bf5;
+  --color-primary-hover: #4a58e0;
+  --color-primary-bg: #ebf2fc;
+  --color-accent-blue: #4a90e2;
+  --color-accent-purple: #8b7bff;
+  --color-accent-teal: #5cd7a8;
+  /* 中性色轴 */
+  --color-bg-page: #f5f6f8;
+  --color-bg-surface: #ffffff;
+  --color-text-main: #1f2329;
+  --color-text-secondary: #8f959e;
+  --color-text-placeholder: #bfbfbf;
+  --color-border-default: #dee0e3;
+  /* 状态色（标签深色文字 + 浅色底，满足对比度） */
+  --color-success: #52c41a;
+  --color-success-bg: #f0f9eb;
+  --color-warning: #faad14;
+  --color-warning-bg: #fff8e6;
+  --color-danger: #f5222d;
+  --color-danger-bg: #fff1f0;
+  --color-info: #1890ff;
+  --color-info-bg: #eaf4ff;
+  /* 表面辅助色（对照 VISUAL_DESIGN.md 2.1 中性色轴扩展） */
+  --color-bg-hover: #f0f2f5; /* 导航项/可点行 hover 背景 */
+  --color-bg-row-hover: #fafbfc; /* 表格行 hover 与表头背景 */
+  --color-bg-tag-gray: #f5f5f5; /* 灰态标签底（待处理/停用） */
+  --color-bg-chat: #f7f8fa; /* 对话预览壳消息区底色 */
+  --color-focus-ring: rgba(91, 107, 245, 0.25); /* 主色聚焦外发光 */
+  --color-danger-focus: rgba(245, 34, 45, 0.12); /* 错误态聚焦外发光 */
+  /* 间距（8px 基数） */
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 20px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  /* 圆角 */
+  --radius-pill: 9999px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  /* 三层克制阴影 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 8px 24px rgba(0, 0, 0, 0.12);
+  /* 字体体系 */
+  --font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  --font-size-title: 24px;
+  --font-size-card: 16px;
+  --font-size-body: 14px;
+  --font-size-small: 12px;
+  --font-weight-title: 600;
+  --font-weight-card: 500;
+  --font-weight-body: 400;
+  /* 统一动效时长，prefers-reduced-motion 下在 main.css 关闭 */
+  --transition-base: all 0.2s ease;
+}
+
+/* Element Plus 主题变量覆盖：组件库与设计令牌对齐 */
+:root {
+  --el-color-primary: var(--color-primary);
+  --el-color-primary-light-3: #7d89f8;
+  --el-color-primary-light-5: #9fa8fa;
+  --el-color-primary-light-7: #c1c7fc;
+  --el-color-primary-light-8: #d6dafc;
+  --el-color-primary-light-9: var(--color-primary-bg);
+  --el-color-primary-dark-2: var(--color-primary-hover);
+  --el-border-radius-base: var(--radius-sm);
+  --el-border-radius-small: var(--radius-sm);
+  --el-border-radius-round: var(--radius-pill);
+  --el-font-family: var(--font-family);
+  --el-text-color-primary: var(--color-text-main);
+  --el-text-color-regular: var(--color-text-secondary);
+  --el-border-color: var(--color-border-default);
+  --el-border-color-hover: var(--color-primary);
+  --el-box-shadow-light: var(--shadow-card);
+  --el-box-shadow: var(--shadow-modal);
+}

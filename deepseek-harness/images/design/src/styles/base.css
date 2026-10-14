@@ -1,0 +1,239 @@
+/* 文件路径: design/src/styles/base.css */
+/* 作用: 全局基础样式 —— reset、通用类名、Element Plus 主题覆盖 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* 细滚动条：贴合浅色 B 端风格 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== 通用原子类 ===== */
+
+/* 卡片容器：圆角 12px、内边距 20px、极浅阴影 */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-light);
+}
+
+/* 主按钮：圆角 6px、蓝色填充 */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: var(--radius-btn);
+  background: var(--color-primary);
+  color: var(--color-text-invert);
+  font-size: var(--font-size-body);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease-out);
+}
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+.btn-primary:active {
+  background: var(--color-primary-active);
+}
+.btn-primary:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* 次要按钮：白色描边 */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.btn-secondary:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary-light);
+  background: var(--color-primary-lighter);
+}
+
+/* 黑色强调按钮（“专家”选中态、角标风格） */
+.btn-black {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-black);
+  border-radius: var(--radius-btn);
+  background: var(--color-black);
+  color: var(--color-text-invert);
+  font-size: var(--font-size-body);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease-out);
+}
+.btn-black:hover {
+  background: var(--color-black-hover);
+}
+
+/* 胶囊型分段控件（“专家/专家团”） */
+.segmented {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+.segmented-item {
+  height: 32px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.segmented-item:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.segmented-item.is-active {
+  background: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-text-invert);
+}
+
+/* 轻量筛选标签（“全部/客户服务…”） */
+.filter-tab {
+  position: relative;
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-out);
+}
+.filter-tab:hover {
+  color: var(--color-text);
+}
+.filter-tab.is-active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+/* 选中态蓝色下划线 */
+.filter-tab.is-active::after {
+  content: '';
+  position: absolute;
+  left: var(--space-2);
+  right: var(--space-2);
+  bottom: -2px;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+}
+
+/* ===== Element Plus 主题覆盖（与参考图风格对齐） ===== */
+
+/* 主色统一为品牌蓝 */
+.el-button--primary {
+  --el-button-bg-color: var(--color-primary);
+  --el-button-border-color: var(--color-primary);
+  --el-button-hover-bg-color: var(--color-primary-hover);
+  --el-button-hover-border-color: var(--color-primary-hover);
+  --el-button-active-bg-color: var(--color-primary-active);
+  --el-button-active-border-color: var(--color-primary-active);
+}
+
+/* 输入框：聚焦时蓝色边框 */
+.el-input__wrapper {
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 0 1px var(--color-border) inset;
+}
+.el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 1px var(--color-primary) inset;
+}
+.el-input__inner {
+  font-size: var(--font-size-body);
+}
+
+/* 抽屉/弹窗圆角柔和 */
+.el-drawer,
+.el-dialog {
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+.el-dialog {
+  border-radius: var(--radius-lg);
+}
+
+/* 下拉菜单圆角 */
+.el-popper.is-light,
+.el-dropdown__popper,
+.el-select-dropdown {
+  border-radius: var(--radius-md);
+}

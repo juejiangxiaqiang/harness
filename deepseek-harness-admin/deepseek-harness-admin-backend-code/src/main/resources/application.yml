@@ -1,0 +1,84 @@
+# 文件说明：Harness 管理后台后端服务配置。
+# 敏感配置（数据库密码、模型 API Key、向量库凭证）一律通过环境变量注入，不得写入仓库。
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  config:
+    # 加载工程根目录 .env（KEY=VALUE 属性格式）；文件不存在时静默跳过
+    import: optional:file:.env[.properties]
+  application:
+    name: deepseek-harness-admin
+  servlet:
+    multipart:
+      # 上传大小上限，与 harness.storage.max-file-size-mb 保持一致
+      max-file-size: 20MB
+      max-request-size: 25MB
+  datasource:
+    # MySQL 8.0，连接信息通过环境变量注入
+    url: ${DB_URL:jdbc:mysql://localhost:3306/harness_admin?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  ai:
+    # 向量库类型：redis（生产）或 local（内存 SimpleVectorStore，仅开发验证）。
+    # 模型提供方选择：本项目仅使用 Embedding，其余模型能力显式禁用。
+    # embedding 为 local（本地缺省）或 openai（需配置 API Key）。
+    vectorstore:
+      type: ${SPRING_AI_VECTORSTORE_TYPE:redis}
+      redis:
+        # Redis 向量索引（需 RediSearch 模块；索引维度取自 Embedding 模型）
+        index-name: ${REDIS_VECTOR_INDEX:harness_kb_index}
+        prefix: ${REDIS_VECTOR_PREFIX:kb:}
+        # 首次写入自动创建索引（FT.CREATE）
+        initialize-schema: ${REDIS_VECTOR_INITIALIZE_SCHEMA:true}
+    model:
+      chat: ${SPRING_AI_CHAT_PROVIDER:local}
+      embedding: ${SPRING_AI_EMBEDDING_PROVIDER:local}
+      image: local
+      moderation: local
+      audio:
+        speech: local
+        transcription: local
+    openai:
+      # OpenAI 兼容服务配置：仅当对应 SPRING_AI_*_PROVIDER=openai 时生效
+      api-key: ${OPENAI_API_KEY:}
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+      embedding:
+        options:
+          model: ${OPENAI_EMBEDDING_MODEL:text-embedding-3-small}
+      chat:
+        options:
+          # 管理端预览对话使用的对话模型；provider=openai 时生效
+          model: ${OPENAI_CHAT_MODEL:gpt-4o-mini}
+  data:
+    redis:
+      # Redis 连接（向量库 + RediSearch）。Spring AI 2.0 的 RedisVectorStore 依赖 Jedis 客户端。
+      client-type: ${REDIS_CLIENT_TYPE:jedis}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+mybatis-plus:
+  configuration:
+    # 下划线字段名自动映射为驼峰属性
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+    db-config:
+      # 主键自增
+      id-type: auto
+
+harness:
+  storage:
+    # 知识库原始文件存储目录（环境变量注入）
+    knowledge-base-dir: ${KNOWLEDGE_BASE_DIR:./data/knowledge-bases}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  config: classpath:logback-spring.xml

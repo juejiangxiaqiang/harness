@@ -1,0 +1,27 @@
+# 后端 —— 构建与依赖产物
+
+# Maven 构建输出目录：包含编译后的 .class、可执行 jar 及历史 surefire 测试报告，均为程序自动生成，且内容庞大，无需读取。
+backend/target/
+
+# 本地 Maven 依赖仓库：缓存大量第三方 .jar 与 .pom 依赖包，非项目源码，无需读取。
+backend/.m2repo/
+
+# 后端 IDE 与调试缓存目录：存放 IntelliJ 等 IDE 的工程配置及 Maven classpath 缓存，非业务代码，无需读取。
+backend/.idea/
+backend/.codex/
+
+# 前端 —— 依赖与构建产物
+
+# Node 依赖目录：通过 npm 安装的第三方依赖包，非项目源码，无需读取。
+frontend/node_modules/
+
+# 前端构建产物目录：打包生成的静态文件，软件可随时重建，无需读取。
+frontend/dist/
+
+# Vite 构建缓存目录：开发过程产生的临时编译缓存，无需读取。
+frontend/.vite/
+
+# 其它 —— 缓存与临时数据
+
+# 自动化测试截图目录：机器人调试过程中生成的截图，非源码，无需读取。
+.codex/screenshots/
